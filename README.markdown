@@ -1,6 +1,6 @@
-# Dust-Rails
+# Dust-Sinatra
 
-This gem adds the Dust template and a corresponding assets engine to the asset pipeline in Rails => 3.1 applications.
+This gem adds the Dust template and a corresponding assets engine to sinatra applications.
 
 For detailed information about Dust, visit <http://akdubya.github.com/dustjs/>
 
@@ -8,7 +8,7 @@ For detailed information about Dust, visit <http://akdubya.github.com/dustjs/>
 
 Add the following line to your Gemfile:
 
-	gem 'dust-rails'
+	gem 'dust-sinatra'
 
 Update your bundle:
 
@@ -19,7 +19,7 @@ Update your bundle:
 Place individual Dust template file in their own file with `template_name.js.dust` extension.
 
 ```javascript
-	/* app/assets/javascripts/templates/demo.js.dust */
+	/* views/js/templates/demo.js.dust */
 	
 	Hello {name}! You have {count} new messages.
 ```
@@ -31,31 +31,35 @@ Which will be compiled and rendered as:
 ```
 
 
-Dust-rails resolves the name of the template out of relative path of each template file.
-Relative path starts from `app/assets/javascripts/templates/` by default.
+Dust-sinatra resolves the name of the template out of request path of each template file.
+Relative path starts from `/` by default.
 
-	app/assets/javascripts/templates/demo1.js.dust -> demo1
-	app/assets/javascripts/templates/demos/demo2.js.dust -> demos/demo2
+	/demo1.js -> demo1
+	/demos/demo2.js -> demos/demo2
 
-If you want to change the default root path of template files, add following configuration into application.rb:
+If you want to change the default root path of template files, add following configuration:
 
 ```ruby
-    # config/application.rb
     module YourApp
-        class Application < Rails::Application
-            config.dust.template_root = 'app/assets/your_path_to_templates/'
+        class YourApplication < Sinatra::Base
+            configure do
+                Dust.config.template_root = '/your_path_to_templates/'
+            end
         end
     end
 ```
 
-In your javascript files, require `dust-core` and your own template files.
-Using `require_tree` is recommended if you want to require all the template files at once.
+In your html files, load `dust-core` and your own template files.
+You are also able to use `require-js` or `sinatra-assetpack` to include the files.
+
+```html
+	<!-- index.html -->
+	...
+	<script src="js/dust-core.js"></script>
+	<script src="js/dust_template_path.js"></script>
+```
 
 ```javascript
-	/* app/assets/javascripts/application.js */
-	
-	//= require dust-core
-	//= require_tree ./templates
 	...
 	dust.render("demo", {name: "Fred", count: 10}, function(err, out) {
  		console.log(out);
