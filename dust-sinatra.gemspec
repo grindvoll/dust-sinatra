@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email       = ["ssowonny@gmail.com", "thefron@wafflestudio.com"]
   s.homepage    = "https://github.com/ssowonny/dust-sinatra"
   s.summary     = %q{Use dust.js with sinatra}
-  s.description = %q{This gem makes you dust.js easy to use with sinatra.}
+  s.description = %q{dust-sinatra helps you use dust.js with sinatra.}
 
   s.rubyforge_project = "dust-sinatra"
 
