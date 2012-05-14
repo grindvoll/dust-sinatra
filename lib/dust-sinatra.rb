@@ -1,9 +1,10 @@
-require "dust-rails/version"
-require "dust-rails/rails/engine.rb"
-require "dust-rails/rails/dust_template.rb"
-require "dust-rails/rails/railtie.rb"
+require "dust-sinatra/version"
+require "dust-sinatra/sinatra/helpers.rb"
+require "dust-sinatra/sinatra/dust_template.rb"
+require "dust-sinatra/sinatra/base.rb"
 
 module Dust
+
   class Config
     attr_accessor :template_root
   end
@@ -15,4 +16,5 @@ module Dust
   def self.configure
     yield self.config
   end
+
 end

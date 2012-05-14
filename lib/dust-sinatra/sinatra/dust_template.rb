@@ -2,7 +2,7 @@ require 'tilt'
 require 'execjs'
 
 module Dust
-  module Rails
+  module Sinatra
 
     module Source
       def self.path
