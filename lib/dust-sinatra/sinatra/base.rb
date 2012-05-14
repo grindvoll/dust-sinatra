@@ -4,7 +4,7 @@ module Dust
 
     def self.registered( app )
       app.helpers Dust::Sinatra::Helpers
-      Dust.config.template_root = app.views + "/"
+      Dust.config.template_root ||= "/"
     end
   end
 end
